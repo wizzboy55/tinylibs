@@ -9,6 +9,7 @@
 
 #include <avr/io.h>
 #include "ccp.h"
+#include <string.h>
 
 void vEEPROMInit(void) {
 	

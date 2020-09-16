@@ -12,7 +12,7 @@
 
 #include "osconfig.h"
 
-volatile SysTime_t xSystemTime = 0;
+SysTime_t xSystemTime = 0;
 
 inline void vRTCSetup(void) {
 	CLKCTRL.OSC32KCTRLA = CLKCTRL_RUNSTDBY_bm;
@@ -37,6 +37,13 @@ inline void vRTCSetup(void) {
 	// System Time Interrupt
 	RTC.INTCTRL = RTC_OVF_bm;
 	RTC.PER = 0x8000;
+	RTC.CMP = 0x8000;
+	
+	#ifdef DEBUG
+	RTC.DBGCTRL |= RTC_DBGRUN_bm;
+	RTC.PITDBGCTRL |= RTC_DBGRUN_bm;
+	#endif
+	
 	RTC.CTRLA = RTC_RTCEN_bm | RTC_PRESCALER_DIV1_gc | RTC_RUNSTDBY_bm;
 }
 

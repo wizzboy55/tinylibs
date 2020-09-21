@@ -16,7 +16,7 @@ SysTime_t xSystemTime = 0;
 
 inline void vRTCSetup(void) {
 	CLKCTRL.OSC32KCTRLA = CLKCTRL_RUNSTDBY_bm;
-	//	RTC.CLKSEL = RTC_CLKSEL_INT32K_gc; // ULP32K by default
+	RTC.CLKSEL = RTC_CLKSEL_INT32K_gc;  // May be modified by Sleep functions
 	// System Tick Timer
 	#if OS_FREQUENCY == 1024
 	RTC.PITCTRLA  = RTC_PERIOD_CYC32_gc | RTC_PITEN_bm;

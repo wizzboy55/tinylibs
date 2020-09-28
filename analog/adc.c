@@ -19,5 +19,5 @@ inline BaseType_t xAdcConversionDone(void) {
 }
 
 inline uint16_t usAdcGetResult(void) {
-	return (ADC0.RESH << 8) | ADC0.RESL;
+	return ADC0.RES;
 }

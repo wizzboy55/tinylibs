@@ -13,25 +13,25 @@
 #include "tinylibdef.h"
 
 typedef enum {ePortA, ePortB, ePortC} ePort_t;
-	
+
 #define GPIO_PORTA	0
 #define GPIO_PORTB	1
 #define GPIO_PORTC	2
 
 #ifdef PORTA
-void vGpioPortASetPin(const uint8_t pin);
-void vGpioPortAClearPin(const uint8_t pin);
-void vGpioPortASetupOutput(const uint8_t pin);
-void vGpioPortASetupInput(const uint8_t pin);
-BaseType_t xGpioPortAReadPin(const uint8_t pin);
+#define GPIO_PORTA_SETPIN(pin)	PORTA.OUTSET = (1 << pin)
+#define GPIO_PORTA_CLRPIN(pin)	PORTA.OUTCLR = (1 << pin)
+#define GPIO_PORTA_SETOUT(pin)	PORTA.DIRSET = (1 << pin)
+#define GPIO_PORTA_SETIN(pin)	PORTA.DIRCLR = (1 << pin)
+#define GPIO_PORTA_READPIN(pin)	((PORTA.IN & (1 << pin)) != 0)
 #endif
 
 #ifdef PORTB
-void vGpioPortBSetPin(const uint8_t pin);
-void vGpioPortBClearPin(const uint8_t pin);
-void vGpioPortBSetupOutput(const uint8_t pin);
-void vGpioPortBSetupInput(const uint8_t pin);
-BaseType_t xGpioPortBReadPin(const uint8_t pin);
+#define GPIO_PORTB_SETPIN(pin)	PORTB.OUTSET = (1 << pin)
+#define GPIO_PORTB_CLRPIN(pin)	PORTB.OUTCLR = (1 << pin)
+#define GPIO_PORTB_SETOUT(pin)	PORTB.DIRSET = (1 << pin)
+#define GPIO_PORTB_SETIN(pin)	PORTB.DIRCLR = (1 << pin)
+#define GPIO_PORTB_READPIN(pin)	((PORTB.IN & (1 << pin)) != 0)
 #endif
 
 void vGpioSetupInput(const ePort_t port, const uint8_t pin, const BaseType_t inverted, BaseType_t pullup, const PORT_ISC_t portConfig);

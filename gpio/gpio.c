@@ -9,50 +9,6 @@
 
 #include <stddef.h>
 
-#ifdef PORTA
-inline void vGpioPortASetPin(const uint8_t pin) {
-	PORTA.OUTSET = (1 << pin);
-}
-
-inline void vGpioPortAClearPin(const uint8_t pin) {
-	PORTA.OUTCLR = (1 << pin);
-}
-
-inline void vGpioPortASetupOutput(const uint8_t pin) {
-	PORTA.DIRSET = (1 << pin);
-}
-
-inline void vGpioPortASetupInput(const uint8_t pin) {
-	PORTA.DIRCLR = (1 << pin);
-}
-
-inline BaseType_t xGpioPortAReadPin(const uint8_t pin) {
-	return ((PORTA.IN & (1 << pin)) != 0);
-}
-#endif
-
-#ifdef PORTB
-inline void vGpioPortBSetPin(const uint8_t pin) {
-	PORTB.OUTSET = (1 << pin);
-}
-
-inline void vGpioPortBClearPin(const uint8_t pin) {
-	PORTB.OUTCLR = (1 << pin);
-}
-
-inline void vGpioPortBSetupOutput(const uint8_t pin) {
-	PORTB.DIRSET = (1 << pin);
-}
-
-inline void vGpioPortBSetupInput(const uint8_t pin) {
-	PORTB.DIRCLR = (1 << pin);
-}
-
-inline BaseType_t xGpioPortBReadPin(const uint8_t pin) {
-	return ((PORTB.IN & (1 << pin)) != 0);
-}
-#endif
-
 void vGpioSetupOutput(const ePort_t port, const uint8_t pin) {
 	switch(port) {
 		#ifdef PORTA

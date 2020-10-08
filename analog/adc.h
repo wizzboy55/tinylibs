@@ -16,5 +16,4 @@ void vAdcStartConversion(void);
 BaseType_t xAdcConversionDone(void);
 uint16_t usAdcGetResult(void);
 
-
 #endif /* ADC_H_ */

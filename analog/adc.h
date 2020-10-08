@@ -10,6 +10,7 @@
 #define ADC_H_
 
 #include "tinylibdef.h"
+#include <avr/io.h>
 
 void vAdcStartConversion(void);
 BaseType_t xAdcConversionDone(void);

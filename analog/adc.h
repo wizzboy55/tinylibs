@@ -12,8 +12,13 @@
 #include "tinylibdef.h"
 #include <avr/io.h>
 
-void vAdcStartConversion(void);
-BaseType_t xAdcConversionDone(void);
-uint16_t usAdcGetResult(void);
+#define ADC_START_CONVERSION(x)		do {		\
+	x.INTFLAGS = ADC_RESRDY_bm;					\
+	x.COMMAND = ADC_STCONV_bm;					\
+} while(0);										\
+
+#define ADC_CONVERSION_DONE(x)		(x.INTFLAGS & ADC_RESRDY_bm)
+
+#define ADC_GET_RESULT(x)			x.RES
 
 #endif /* ADC_H_ */

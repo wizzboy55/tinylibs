@@ -20,20 +20,27 @@ inline void vRTCSetup(void) {
 	// System Tick Timer
 	#if OS_FREQUENCY == 1024
 	RTC.PITCTRLA  = RTC_PERIOD_CYC32_gc | RTC_PITEN_bm;
+	RTC.PITINTCTRL = RTC_PI_bm;
 	#elif OS_FREQUENCY == 512
 	RTC.PITCTRLA  = RTC_PERIOD_CYC64_gc | RTC_PITEN_bm;
+	RTC.PITINTCTRL = RTC_PI_bm;
 	#elif OS_FREQUENCY == 256
 	RTC.PITCTRLA  = RTC_PERIOD_CYC128_gc | RTC_PITEN_bm;
+	RTC.PITINTCTRL = RTC_PI_bm;
 	#elif OS_FREQUENCY == 128
 	RTC.PITCTRLA  = RTC_PERIOD_CYC256_gc | RTC_PITEN_bm;
+	RTC.PITINTCTRL = RTC_PI_bm;
 	#elif OS_FREQUENCY == 64
 	RTC.PITCTRLA  = RTC_PERIOD_CYC512_gc | RTC_PITEN_bm;
+	RTC.PITINTCTRL = RTC_PI_bm;
 	#elif OS_FREQUENCY == 32
 	RTC.PITCTRLA  = RTC_PERIOD_CYC1024_gc | RTC_PITEN_bm;
+	RTC.PITINTCTRL = RTC_PI_bm;
+	#elif OS_FREQUENCY == 0
+	
 	#else
 	#error osconfig.h Invalid OS_FREQUENCY value using RTC!
 	#endif
-	RTC.PITINTCTRL = RTC_PI_bm;
 	// System Time Interrupt
 	RTC.INTCTRL = RTC_OVF_bm;
 	RTC.PER = 0x8000;
@@ -56,6 +63,8 @@ ISR( RTC_CNT_vect ) {
 	xSystemTime++;
 }
 
+#if OS_FREQUENCY != 0
 ISR( RTC_PIT_vect ) {
 	RTC.PITINTFLAGS = RTC_PI_bm;
 }
+#endif

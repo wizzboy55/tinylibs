@@ -9,7 +9,9 @@
 #ifndef CCP_H_
 #define CCP_H_
 
-void vTinyCCPUnlockIoRegisters(void);
-void vTinyCCPUnlockSPMRegisters(void);
+#include <avr/io.h>
+
+#define CCP_UNLOCK_IO_REGISTERS()		CCP = 0xD8
+#define CCP_UNLOCK_SPM_REGISTERS()		CCP = 0x9D
 
 #endif /* CCP_H_ */

@@ -6,13 +6,3 @@
  */ 
 
 #include "ccp.h"
-
-#include <avr/io.h>
-
- __attribute__((always_inline)) inline void vTinyCCPUnlockIoRegisters(void) {
-	CCP = 0xD8;
-}
-
- __attribute__((always_inline)) inline void vTinyCCPUnlockSPMRegisters(void) {
-	 CCP = 0x9D;
- }

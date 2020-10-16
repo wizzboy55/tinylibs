@@ -25,7 +25,7 @@ void vEEPROMWriteBlock(uint16_t usEepromAddress, uint8_t *data, size_t size) {
 	;
 
 	/* Clear page buffer */
-	vTinyCCPUnlockSPMRegisters();
+	CCP_UNLOCK_SPM_REGISTERS();
 	NVMCTRL.CTRLA = NVMCTRL_CMD_PAGEBUFCLR_gc;
 
 	do {
@@ -35,7 +35,7 @@ void vEEPROMWriteBlock(uint16_t usEepromAddress, uint8_t *data, size_t size) {
 		// If we have filled an entire page or written last byte to a partially filled page
 		if ((((uintptr_t)write % EEPROM_PAGE_SIZE) == 0) || (size == 0)) {
 			/* Erase written part of page and program with desired value(s) */
-			vTinyCCPUnlockSPMRegisters();
+			CCP_UNLOCK_SPM_REGISTERS();
 			NVMCTRL.CTRLA = NVMCTRL_CMD_PAGEERASEWRITE_gc;
 		}
 	} while (size != 0);

@@ -58,7 +58,7 @@ inline BaseType_t utils_IsWatchDogTimerReset(void) {
 }
 
 void utils_SystemReset(void) {
-	vTinyCCPUnlockIoRegisters();
+	CCP_UNLOCK_IO_REGISTERS();
 	RSTCTRL.SWRR = RSTCTRL_SWRE_bm;
 }
 

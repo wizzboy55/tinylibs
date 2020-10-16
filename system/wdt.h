@@ -16,11 +16,11 @@
 	CCP_UNLOCK_IO_REGISTERS(); \
 	WDT.CTRLA = WDT_WINDOW_OFF_gc | frequency;
 
-#define TINYWATCHDOG_DISABLE \
+#define TINYWATCHDOG_DISABLE() \
 	CCP_UNLOCK_IO_REGISTERS(); \
 	WDT.CTRLA = WDT_WINDOW_OFF_gc | WDT_PERIOD_OFF_gc;
 
-#define TINYWATCHDOG_RESET	\
+#define TINYWATCHDOG_RESET()	\
 	asm volatile (			\
 	"    wdr"	"\n"		\
 	);					

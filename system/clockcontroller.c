@@ -13,10 +13,8 @@
 inline void vTinyMainClockSetup(const MCLKDivider_t divider) {
 //	CCP_UNLOCK_IO_REGISTERS();
 //	CLKCTRL.MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc; // OSC20M by default
-	CCP_UNLOCK_IO_REGISTERS();
-	CLKCTRL.MCLKCTRLB = (uint8_t)divider;
-	CCP_UNLOCK_IO_REGISTERS();
-	CLKCTRL.MCLKLOCK = CLKCTRL_LOCKEN_bm;
+	ccp_write_io((void*)&CLKCTRL.MCLKCTRLB, (uint8_t)divider);
+	ccp_write_io((void*)&CLKCTRL.MCLKLOCK, CLKCTRL_LOCKEN_bm);
 } 
 
 inline void vTinySetup32kULP(void) {

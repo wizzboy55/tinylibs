@@ -25,52 +25,57 @@
  *
  */
 
-#ifndef CPU_CCP_H
-#define CPU_CCP_H
+#ifndef PROTECTED_IO_H
+#define PROTECTED_IO_H
 
-#include "protected_io.h"
-#include <avr/io.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/**
- * \brief Write to a CCP-protected 8-bit I/O register
- *
- * \param addr Address of the I/O register
- * \param value Value to be written
- *
- * \note Using IAR Embedded workbench, the choice of memory model has an impact
- *       on calling convention. The memory model is not visible to the
- *       preprocessor, so it must be defined in the Assembler preprocessor directives.
- */
-static inline void ccp_write_io(void *addr, uint8_t value)
-{
-	protected_write_io(addr, CCP_IOREG_gc, value);
-}
-
-/** @} */
+#if defined(__DOXYGEN__)
+//! \name IAR Memory Model defines.
+//@{
 
 /**
- * \brief Write to CCP-protected 8-bit SPM register
+ * \def CONFIG_MEMORY_MODEL_TINY
+ * \brief Configuration symbol to enable 8 bit pointers.
  *
- * \param addr Address of the SPM register
- * \param value Value to be written
- *
- * \note Using IAR Embedded workbench, the choice of memory model has an impact
- *       on calling convention. The memory model is not visible to the
- *       preprocessor, so it must be defined in the Assembler preprocessor directives.
  */
-static inline void ccp_write_spm(void *addr, uint8_t value)
-{
-	protected_write_io(addr, CCP_SPM_gc, value);
-}
+#define CONFIG_MEMORY_MODEL_TINY
 
-/** @} */
+/**
+ * \def CONFIG_MEMORY_MODEL_SMALL
+ * \brief Configuration symbol to enable 16 bit pointers.
+ * \note If no memory model is defined, SMALL is default.
+ *
+ */
+#define CONFIG_MEMORY_MODEL_SMALL
 
-#ifdef __cplusplus
-}
+/**
+ * \def CONFIG_MEMORY_MODEL_LARGE
+ * \brief Configuration symbol to enable 24 bit pointers.
+ *
+ */
+#define CONFIG_MEMORY_MODEL_LARGE
+
+//@}
 #endif
 
-#endif /* CPU_CCP_H */
+/**
+ * \brief Write to am 8-bit I/O register protected by CCP or a protection bit
+ *
+ * \param addr Address of the I/O register
+ * \param magic CCP magic value or Mask for protection bit
+ * \param value Value to be written
+ *
+ * \note Using IAR Embedded workbench, the choice of memory model has an impact
+ *       on calling convention. The memory model is not visible to the
+ *       preprocessor, so it must be defined in the Assembler preprocessor directives.
+ */
+extern void protected_write_io(void *addr, uint8_t magic, uint8_t value);
+
+/** @} */
+
+#endif /* PROTECTED_IO_H */

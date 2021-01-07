@@ -31,4 +31,6 @@ uint32_t hexParseUint32(const char **c);
 
 #define UNUSED(expr) do { (void)(expr); } while(0)
 
+#define NOP() do { __asm__ __volatile__ ("nop"); } while (0)
+
 #endif /* UTILITIES_H_ */

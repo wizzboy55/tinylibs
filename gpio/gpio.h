@@ -34,7 +34,14 @@ do {	\
 	port.GPIO_GETPINCTRL(pin) = ((inverted == pdTRUE) << PORT_INVEN_bp) | ((pullup == pdTRUE) << PORT_PULLUPEN_bp) | (portConfig & PORT_ISC_gm);	\
 } while (0)
 
-void vGpioSetupInput(const ePort_t port, const uint8_t pin, const BaseType_t inverted, BaseType_t pullup, const PORT_ISC_t portConfig);
-void vGpioSetupOutput(const ePort_t port, const uint8_t pin);
+#define GPIO_ENABLEPULLUP(port, pin) \
+do {	\
+	port.GPIO_GETPINCTRL(pin) |= (1 << PORT_PULLUPEN_bp);	\
+} while (0)
+
+#define GPIO_DISABLEPULLUP(port, pin) \
+do {	\
+	port.GPIO_GETPINCTRL(pin) &= ~(1 << PORT_PULLUPEN_bp);	\
+} while (0)
 
 #endif /* GPIO_H_ */

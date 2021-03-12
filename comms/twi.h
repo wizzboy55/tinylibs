@@ -29,9 +29,9 @@ typedef struct {
 	uint8_t ucMasterReadSize;
 	uint8_t pucMasterWriteBuffer[TWI_BUFFER_SIZE];
 	uint8_t ucMasterWriteIndex;
-} TWI_State_t;
+} TWI_Slave_State_t;
 
-void vTinyTWISetupSlave(TWI_t* pxTwi, uint8_t addr, TWI_State_t *pxTwiState);
-void vTinyTWIInterruptHandler(TWI_t* pxTwi, TWI_State_t* pxTwiState);
+void vTinyTWISetupSlave(TWI_t* pxTwi, uint8_t addr, TWI_Slave_State_t *pxTwiState);
+void vTinyTWISlaveInterruptHandler(TWI_t* pxTwi, TWI_Slave_State_t* pxTwiState);
 
 #endif /* TWI_H_ */

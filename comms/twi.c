@@ -9,7 +9,7 @@
 
 uint8_t dump;
 
-void vTinyTWISetupSlave(TWI_t* pxTwi, uint8_t addr, TWI_State_t *pxTwiState) {
+void vTinyTWISetupSlave(TWI_t* pxTwi, uint8_t addr, TWI_Slave_State_t *pxTwiState) {
 	pxTwiState->ucMasterReadIndex = 0;
 	pxTwiState->pucMasterReadBuffer = NULL;
 	pxTwiState->ucMasterWriteIndex = 0;
@@ -18,7 +18,7 @@ void vTinyTWISetupSlave(TWI_t* pxTwi, uint8_t addr, TWI_State_t *pxTwiState) {
 	pxTwi->SCTRLA = TWI_DIEN_bm | TWI_APIEN_bm | TWI_PIEN_bm | TWI_ENABLE_bm;
 }
 
-void vTinyTWIInterruptHandler(TWI_t* pxTwi, TWI_State_t* pxTwiState) {
+void vTinyTWISlaveInterruptHandler(TWI_t* pxTwi, TWI_Slave_State_t* pxTwiState) {
 	
 	if(pxTwi->SSTATUS & TWI_COLL_bm) {
 		// Collision

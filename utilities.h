@@ -18,6 +18,8 @@ BaseType_t utils_IsSoftwareReset(void);
 BaseType_t utils_IsExternalResetType(void);
 BaseType_t utils_IsWatchDogTimerReset(void);
 
+uint8_t utils_getResetCause(void);
+
 void utils_SystemReset(void);
 void utils_WatchDogReset(void);
 

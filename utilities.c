@@ -17,6 +17,7 @@ uint8_t utils_rcause;
 
 void utils_SaveResetCause(void) {
 	utils_rcause = RSTCTRL.RSTFR;
+	RSTCTRL.RSTFR = 0xFF;
 }
 
 void utils_DebugPrintResetCause(void) {
@@ -55,6 +56,10 @@ inline BaseType_t utils_IsExternalResetType(void) {
 
 inline BaseType_t utils_IsWatchDogTimerReset(void) {
 	return utils_rcause & RSTCTRL_WDRF_bm;
+}
+
+inline uint8_t utils_getResetCause(void) {
+	return utils_rcause;
 }
 
 void utils_SystemReset(void) {

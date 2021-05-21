@@ -14,7 +14,13 @@
 
 #define TINYWATCHDOG_ENABLE(frequency)		ccp_write_io((void *)&(WDT.CTRLA), frequency | WDT_WINDOW_OFF_gc)
 
-#define TINYWATCHDOG_DISABLE()				ccp_write_io((void *)&(WDT.CTRLA), WDT_PERIOD_OFF_gc | WDT_WINDOW_OFF_gc)
+#define TINYWATCHDOG_WAITFORSYNC()			while(WDT.STATUS & WDT_SYNCBUSY_bm) {}
+
+#define TINYWATCHDOG_DISABLE()	do {			\
+	TINYWATCHDOG_WAITFORSYNC()					\
+	TINYWATCHDOG_ENABLE(WDT_PERIOD_OFF_gc);		\
+	TINYWATCHDOG_WAITFORSYNC()					\
+} while(0)
 
 #define TINYWATCHDOG_RESET()				asm volatile ("    wdr"	"\n")					
 
